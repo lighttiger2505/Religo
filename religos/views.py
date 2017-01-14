@@ -25,27 +25,30 @@ def detail(request, place_id):
 
 
 def edit(request, place_id):
-    editPlace = get_object_or_404(Place, pk=place_id)
+    edit_place = get_object_or_404(Place, pk=place_id)
     if request.method == 'POST':
         try:
             form = PlaceForm(request.POST)
             if form.is_valid():
-                name = form.cleaned_data['name']
-                phone_number = form.cleaned_data['phone_number']
-                location = form.cleaned_data['location']
-                editPlace.name = name
-                editPlace.phone_number = phone_number
-                editPlace.location = location
-                editPlace.add_date = timezone.now()
-                editPlace.save()
-                reverser = reverse('religos:detail', args=(editPlace.id,))
+                edit_place = form.save(commit=False)
+                edit_place.add_date = timezone.now()
+                edit_place.save()
+                reverser = reverse('religos:detail', args=(edit_place.id,))
                 return HttpResponseRedirect(reverser)
         except:
             raise
     else:
-        init_dict = dict(name=editPlace.name, phone_number=editPlace.phone_number, location=editPlace.location)
+        init_dict = dict(
+            name=edit_place.name,
+            phone_number=edit_place.phone_number,
+            location=edit_place.location
+        )
         form = PlaceForm(initial=init_dict)
-        return render(request, 'religos/edit.html', {'place_id': place_id, 'form': form})
+        return render(
+            request,
+            'religos/edit.html',
+            {'place_id': place_id, 'form': form}
+        )
 
 
 def add(request):
@@ -53,16 +56,10 @@ def add(request):
         try:
             form = PlaceForm(request.POST)
             if form.is_valid():
-                name = form.cleaned_data['name']
-                phone_number = form.cleaned_data['phone_number']
-                location = form.cleaned_data['location']
-                place = Place()
-                place.name = name
-                place.phone_number = phone_number
-                place.location = location
-                place.add_date = timezone.now()
-                place.save()
-                reverser = reverse('religos:detail', args=(place.id,))
+                new_place = form.save(commit=False)
+                new_place.add_date = timezone.now()
+                new_place.save()
+                reverser = reverse('religos:detail', args=(new_place.id,))
                 return HttpResponseRedirect(reverser)
         except:
             raise

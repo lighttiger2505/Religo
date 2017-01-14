@@ -1,9 +1,10 @@
-from django import forms
-from django.forms import widgets
+from django.forms import ModelForm
 
 
-class PlaceForm(forms.Form):
-    pk = forms.CharField(required=False, widget=widgets.HiddenInput)
-    name = forms.CharField(label='名称', max_length=200)
-    phone_number = forms.CharField(label='電話番号', max_length=100)
-    location = forms.CharField(label='住所', max_length=200)
+from religos.models import Place
+
+
+class PlaceForm(ModelForm):
+    class Meta:
+        model = Place
+        fields = ['id', 'name', 'phone_number', 'location']
