@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the Religo index.")
+    latest_place_list = Question.objects.order_by('-pub_date')[:5]
+    output = ', '.join([q.question_text for q in latest_question_list])
+    return HttpResponse(output)
 
 def detail(request, place_id):
     return HttpResponse("You'er looking at place %s" %place_id)
