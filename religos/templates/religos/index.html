@@ -1,9 +1,22 @@
-{% if latest_place_list %}
-<ul>
-    {% for place in latest_place_list %}
-    <li><a href="{% url 'detail' place.id %}">{{ place.name }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No religos are available.</p>
-{% endif %}
+<h1>メニュー</h1>
+<div class="container">
+    <ul>
+        <li>
+            <a href="{% url 'religos:add' %}">追加</a>
+        </li>
+    </ul>
+</div>
+<h1>一覧</h1>
+<div class="container">
+    {% if latest_place_list %}
+    <ul>
+        {% for place in latest_place_list %}
+        <li>
+            <a href="{% url 'religos:detail' place.id %}">{{ place.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No religos are available.</p>
+    {% endif %}
+</div>
