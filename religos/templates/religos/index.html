@@ -1,0 +1,9 @@
+{% if latest_place_list %}
+<ul>
+    {% for place in latest_place_list %}
+    <li><a href="/religos/{{ place.id }}/">{{ place.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No religos are available.</p>
+{% endif %}
