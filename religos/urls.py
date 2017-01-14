@@ -3,12 +3,12 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    # ex: /polls/
+    # ex: /religos/
     url(r'^$', views.index, name='index'),
-    # ex: /polls/5/
+    # ex: /religos/5/
     url(r'^(?P<place_id>[0-9]+)/$', views.detail, name='detail'),
-    # ex: /polls/5/results/
+    # ex: /religos/5/edit/
     url(r'^(?P<place_id>[0-9]+)/edit/$', views.edit, name='edit'),
-    # ex: /polls/5/vote/
+    # ex: /religos/add/
     url(r'^add/$', views.add, name='add'),
 ]

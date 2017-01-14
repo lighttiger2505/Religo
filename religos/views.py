@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.template import loader
 from django.shortcuts import render
 
@@ -16,10 +16,12 @@ def index(request):
 
 
 def detail(request, place_id):
-    try:
-        place = Place.objects.get(pk=place_id)
-    except:
-        raise Http404("Place dose not exist")
+    # try:
+    #     place = Place.objects.get(pk=place_id)
+    # except:
+    #     raise Http404("Place dose not exist")
+    # return render(request, 'religos/detail.html', {'place': place})
+    place = get_object_or_404(Place, pk=place_id)
     return render(request, 'religos/detail.html', {'place': place})
 
 
