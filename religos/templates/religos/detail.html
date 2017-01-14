@@ -8,3 +8,6 @@
     <li>
         <h1>追加日：{{ place.add_date }}</h1></li>
 </ul>
+<form action="{% url 'religos:edit' place.id %}" method="get">
+    <input type="submit" value="編集">
+</form>

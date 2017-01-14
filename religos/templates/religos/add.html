@@ -1,0 +1,10 @@
+<form action="{% url 'religos:add' %}" method="post">
+    <table>
+        {% csrf_token %} {{ form.as_table }}
+        <tr>
+            <td>
+                <input type="submit" value="追加">
+            </td>
+        </tr>
+    </table>
+</form>

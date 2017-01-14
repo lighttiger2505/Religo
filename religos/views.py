@@ -25,7 +25,27 @@ def detail(request, place_id):
 
 
 def edit(request, place_id):
-    return HttpResponse("You'er editing at place %s" % place_id)
+    editPlace = get_object_or_404(Place, pk=place_id)
+    if request.method == 'POST':
+        try:
+            form = PlaceForm(request.POST)
+            if form.is_valid():
+                name = form.cleaned_data['name']
+                phone_number = form.cleaned_data['phone_number']
+                location = form.cleaned_data['location']
+                editPlace.name = name
+                editPlace.phone_number = phone_number
+                editPlace.location = location
+                editPlace.add_date = timezone.now()
+                editPlace.save()
+                reverser = reverse('religos:detail', args=(editPlace.id,))
+                return HttpResponseRedirect(reverser)
+        except:
+            raise
+    else:
+        init_dict = dict(name=editPlace.name, phone_number=editPlace.phone_number, location=editPlace.location)
+        form = PlaceForm(initial=init_dict)
+        return render(request, 'religos/edit.html', {'place_id': place_id, 'form': form})
 
 
 def add(request):
