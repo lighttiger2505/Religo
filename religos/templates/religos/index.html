@@ -1,26 +1,29 @@
-{% extends "religos/base.html" %} {% block content %}
+{% extends "religos/base.html" %}
 
-<h3>メニュー</h3>
-<div class="container">
-  <ul>
-    <li>
-      <a href="{% url 'religos:add' %}">追加</a>
-    </li>
-  </ul>
-</div>
-<h3>一覧</h3>
-<div class="container">
-  {% if latest_place_list %}
-  <ul>
-    {% for place in latest_place_list %}
-    <li>
-      <a href="{% url 'religos:detail' place.id %}">{{ place.name }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>No religos are available.</p>
-  {% endif %}
-</div>
+<!-- Main content start -->
+{% block content %}
+
+<!-- Condition check start -->
+{% if latest_place_list %}
+
+<!-- Exist place -->
+<ul class="list-group">
+  {% for place in latest_place_list %}
+  <li class="list-group-item">
+    <a href="{% url 'religos:detail' place.id %}">{{ place.name }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<!-- Not exist place -->
+
+<p>No place are available.</p>
+
+{% endif %}
+<!-- Condition check end -->
+
+<a href="{% url 'religos:add' %}"><input type="button" class="btn btn-primary" value="add"></input>
+</a>
 
 {% endblock content %}
+<!-- Main content end -->
