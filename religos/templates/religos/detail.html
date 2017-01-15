@@ -1,15 +1,15 @@
 {% extends "religos/base.html" %} {% block content %}
 <ul>
-    <li>
-        <h1>店名：{{ place.name }}</h1></li>
-    <li>
-        <h1>電話番号：{{ place.phone_number }}</h1></li>
-    <li>
-        <h1>住所：{{ place.location }}</h1></li>
-    <li>
-        <h1>追加日：{{ place.add_date }}</h1></li>
+  <li>
+    <h1>店名：{{ place.name }}</h1></li>
+  <li>
+    <h1>電話番号：{{ place.phone_number }}</h1></li>
+  <li>
+    <h1>住所：{{ place.location }}</h1></li>
+  <li>
+    <h1>追加日：{{ place.add_date }}</h1></li>
 </ul>
 <form action="{% url 'religos:edit' place.id %}" method="get">
-    <input type="submit" value="編集">
+  <input type="submit" value="編集">
 </form>
 {% endblock content %}
