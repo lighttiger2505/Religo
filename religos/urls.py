@@ -12,4 +12,8 @@ urlpatterns = [
     url(r'^(?P<place_id>[0-9]+)/edit/$', views.edit, name='edit'),
     # ex: /religos/add/
     url(r'^add/$', views.add, name='add'),
+    # ex: /religos/upload_file/
+    url(r'^upload_file/$', views.upload_file, name='upload_file'),
+    # ex: /religos/upload_complate
+    url(r'^complete_upload/$', views.complete_upload, name='complete_upload'),
 ]
