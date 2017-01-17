@@ -10,6 +10,7 @@ from .forms import PlaceForm
 from .forms import PhotoForm
 from .models import Place
 from .models import Photo
+from .google_vision import do_ocr
 
 
 def index(request):
@@ -80,15 +81,24 @@ def upload_file(request):
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             new_photo = Photo(file=request.FILES['file'])
+            new_photo.ocr_text = 'dummy'
             new_photo.save()
-            return HttpResponseRedirect(reverse('religos:complete_upload'))
+            new_photo.ocr_text = do_ocr(new_photo.file.path)
+            new_photo.save()
+            return HttpResponseRedirect(
+                reverse(
+                    'religos:complete_upload', args=(new_photo.id,)
+                )
+            )
     else:
         form = PhotoForm()
     return render(request, 'religos/upload_file.html', {'form': form})
 
 
-def complete_upload(request):
+def complete_upload(request, photo_id):
+    photo = get_object_or_404(Photo, pk=photo_id)
     return render(
         request,
-        'religos/complete_upload.html'
+        'religos/complete_upload.html',
+        {'photo': photo}
     )

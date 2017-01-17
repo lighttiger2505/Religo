@@ -146,3 +146,6 @@ media
 .nfs*
 
 # End of https://www.gitignore.io/api/macos,python,django,linux
+
+### My Application ###
+.Religo/static

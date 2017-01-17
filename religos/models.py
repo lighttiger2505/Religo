@@ -13,4 +13,4 @@ class Place(models.Model):
 
 class Photo(models.Model):
     file = models.FileField(upload_to='photos/%Y/%m/%d')
-
+    ocr_text = models.TextField(max_length=2000)
