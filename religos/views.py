@@ -42,7 +42,6 @@ def edit(request, place_id):
             form = PlaceForm(request.POST)
             if form.is_valid():
                 edit_place = form.save(commit=False)
-                edit_place.add_date = timezone.now()
                 edit_place.save()
                 reverser = reverse('religos:detail', args=(edit_place.id,))
                 return HttpResponseRedirect(reverser)
