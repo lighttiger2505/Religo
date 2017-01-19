@@ -4,7 +4,7 @@ from django.template import loader
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import PlaceForm
 from .forms import PhotoForm
@@ -14,12 +14,20 @@ from .google_vision import do_ocr
 
 
 def index(request):
-    latest_place_list = Place.objects.order_by('-add_date')[:5]
-    template = loader.get_template('religos/index.html')
-    context = {
-        'latest_place_list': latest_place_list,
-    }
-    return HttpResponse(template.render(context, request))
+    place_list = Place.objects.all()
+    paginator = Paginator(place_list, 10)
+    page = request.GET.get('page')
+
+    if page is None:
+        page = 1
+
+    try:
+        places = paginator.page(page)
+    except PageNotAnInteger:
+        places = paginator.page(page)
+    except EmptyPage:
+        places = paginator.page(paginator.num_pages)
+    return render(request, 'religos/index.html', {'places': places})
 
 
 def detail(request, place_id):
