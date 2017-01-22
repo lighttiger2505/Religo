@@ -19,6 +19,7 @@
 </ul>
 
 <!-- Pageer view -->
+<!--
 <div class="pagination">
   <span class="step-links">
         {% if places.has_previous %}
@@ -31,7 +32,24 @@
   <a href="?page={{ places.next_page_number }}">next</a> {% endif %}
   </span>
 </div>
+-->
+<ul class="pagination">
+  {% if places.has_previous %}
+    <li><a href="?page={{ places.previous_page_number }}">previous</a></li>
+  {% endif %}
 
+  {% for link_page in places.paginator.page_range %}
+    {% if link_page == places.number %}
+        <li class="active"><a href="?page={{ link_page }}">{{ link_page }}</a></li>
+    {% else %}
+        <li><a href="?page={{ link_page }}">{{ link_page }}</a></li>
+    {% endif %}
+  {% endfor %}
+
+  {% if places.has_next %}
+    <li><a href="?page={{ places.next_page_number }}">next</a></li>
+  {% endif %}
+</ul>
 
 {% endblock content %}
 <!-- Main content end -->
