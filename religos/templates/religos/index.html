@@ -5,22 +5,32 @@
 
 <!-- Main content start -->
 
+<!-- Add command button -->
+<p>
+    <a href="{% url 'religos:add' %}">
+        <button type="button" class="btn btn-primary btn-block"/>
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </a>
+</p>
+
 <!-- Search form -->
-<form>
-    <div id="imaginary_container">
-        <div class="input-group stylish-input-group">
-            <input type="text" class="form-control"  placeholder="Search" >
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
+<p>
+    <div class="row">
+        <div class="col-xs-12">
+            <form>
+                <div id="imaginary_container">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control"  placeholder="Search" >
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</form>
-
-<!-- Add command button -->
-<br>
-<a href="{% url 'religos:add' %}"><button type="button" class="btn btn-primary" value="add"/><span class="glyphicon glyphicon-plus"></span></button></a>
-<br>
+</p>
 
 <!-- Place list view -->
 <ul class="list-group">
@@ -33,21 +43,21 @@
 
 <!-- Pageer view -->
 <ul class="pagination">
-  {% if places.has_previous %}
-    <li><a href="?page={{ places.previous_page_number }}">previous</a></li>
-  {% endif %}
-
-  {% for link_page in places.paginator.page_range %}
-    {% if link_page == places.number %}
-        <li class="active"><a href="?page={{ link_page }}">{{ link_page }}</a></li>
-    {% else %}
-        <li><a href="?page={{ link_page }}">{{ link_page }}</a></li>
+    {% if places.has_previous %}
+        <li><a href="?page={{ places.previous_page_number }}"><span class="glyphicon glyphicon-menu-left"></span></a></li>
     {% endif %}
-  {% endfor %}
 
-  {% if places.has_next %}
-    <li><a href="?page={{ places.next_page_number }}">next</a></li>
-  {% endif %}
+    {% for link_page in places.paginator.page_range %}
+        {% if link_page == places.number %}
+            <li class="active"><a href="?page={{ link_page }}">{{ link_page }}</a></li>
+        {% else %}
+            <li><a href="?page={{ link_page }}">{{ link_page }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {% if places.has_next %}
+        <li><a href="?page={{ places.next_page_number }}"><span class="glyphicon glyphicon-menu-right"></span></a></li>
+    {% endif %}
 </ul>
 
 {% endblock content %}

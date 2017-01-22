@@ -14,3 +14,30 @@ body {
 .container .text-muted {
     margin: 20px 0;
 }
+
+#tool-area {
+    padding: 10px, 10px, 10px, 10px;
+}
+
+#search-area {
+    padding: 10px, 10px, 10px, 10px;
+}
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
