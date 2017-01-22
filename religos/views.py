@@ -1,16 +1,41 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.template import loader
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views import generic
 
 from .forms import PlaceForm
 from .forms import PhotoForm
 from .models import Place
 from .models import Photo
 from .google_vision import do_ocr
+
+
+class IndexView(generic.ListView):
+    model = Place
+    template_name = "religos/index.html"
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        place_list = Place.objects.all()
+        paginator = Paginator(place_list, self.paginate_by)
+
+        page = self.request.GET.get('page')
+        if page is None:
+            page = 1
+
+        try:
+            places = paginator.page(page)
+        except PageNotAnInteger:
+            places = paginator.page(page)
+        except EmptyPage:
+            places = paginator.page(paginator.num_pages)
+
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['places'] = places
+        return context
 
 
 def index(request):
