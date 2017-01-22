@@ -19,20 +19,6 @@
 </ul>
 
 <!-- Pageer view -->
-<!--
-<div class="pagination">
-  <span class="step-links">
-        {% if places.has_previous %}
-            <a href="?page={{ places.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ places.number }} of {{ places.paginator.num_pages }}.
-        </span> {% if places.has_next %}
-  <a href="?page={{ places.next_page_number }}">next</a> {% endif %}
-  </span>
-</div>
--->
 <ul class="pagination">
   {% if places.has_previous %}
     <li><a href="?page={{ places.previous_page_number }}">previous</a></li>
