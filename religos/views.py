@@ -38,23 +38,6 @@ class IndexView(generic.ListView):
         return context
 
 
-def index(request):
-    place_list = Place.objects.all()
-    paginator = Paginator(place_list, 10)
-    page = request.GET.get('page')
-
-    if page is None:
-        page = 1
-
-    try:
-        places = paginator.page(page)
-    except PageNotAnInteger:
-        places = paginator.page(page)
-    except EmptyPage:
-        places = paginator.page(paginator.num_pages)
-    return render(request, 'religos/index.html', {'places': places})
-
-
 def detail(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     return render(request, 'religos/detail.html', {'place': place})
