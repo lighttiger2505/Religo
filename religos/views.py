@@ -15,7 +15,7 @@ from .google_vision import do_ocr
 
 class IndexView(generic.ListView):
     model = Place
-    template_name = "religos/index.html"
+    template_name = 'religos/index.html'
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
@@ -38,9 +38,14 @@ class IndexView(generic.ListView):
         return context
 
 
-def detail(request, place_id):
-    place = get_object_or_404(Place, pk=place_id)
-    return render(request, 'religos/detail.html', {'place': place})
+class DetailView(generic.DetailView):
+    model = Place
+    template_name = 'religos/detail.html'
+
+
+# def detail(request, place_id):
+#     place = get_object_or_404(Place, pk=place_id)
+#     return render(request, 'religos/detail.html', {'place': place})
 
 
 def edit(request, place_id):
