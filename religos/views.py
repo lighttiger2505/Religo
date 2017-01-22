@@ -43,9 +43,21 @@ class DetailView(generic.DetailView):
     template_name = 'religos/detail.html'
 
 
-# def detail(request, place_id):
-#     place = get_object_or_404(Place, pk=place_id)
-#     return render(request, 'religos/detail.html', {'place': place})
+class EditView(generic.UpdateView):
+    model = Place
+    template_name = 'religos/edit.html'
+    form_class = PlaceForm
+    template_name_suffix = '_update_form'
+    success_url = "/"
+
+    # def form_valid(self, form):
+    #     print("ok")
+    #
+    # def form_invalid(self, form):
+    #     print("ng")
+    #     return render(self.request, 'webDetail.html', {
+    #         'message': "11111"
+    #     })
 
 
 def edit(request, place_id):
