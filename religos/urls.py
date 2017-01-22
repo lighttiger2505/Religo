@@ -7,10 +7,9 @@ urlpatterns = [
     # ex: /religos/
     url(r'^$', views.IndexView.as_view(), name='index'),
     # ex: /religos/5/
-    # url(r'^(?P<place_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     # ex: /religos/5/edit/
-    url(r'^(?P<place_id>[0-9]+)/edit/$', views.edit, name='edit'),
+    url(r'^(?P<pk>[0-9]+)/edit/$', views.EditView.as_view(), name='edit'),
     # ex: /religos/add/
     url(r'^add/$', views.add, name='add'),
     # ex: /religos/upload_file/

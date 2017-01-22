@@ -47,43 +47,7 @@ class EditView(generic.UpdateView):
     model = Place
     template_name = 'religos/edit.html'
     form_class = PlaceForm
-    template_name_suffix = '_update_form'
-    success_url = "/"
-
-    # def form_valid(self, form):
-    #     print("ok")
-    #
-    # def form_invalid(self, form):
-    #     print("ng")
-    #     return render(self.request, 'webDetail.html', {
-    #         'message': "11111"
-    #     })
-
-
-def edit(request, place_id):
-    edit_place = get_object_or_404(Place, pk=place_id)
-    if request.method == 'POST':
-        try:
-            form = PlaceForm(request.POST)
-            if form.is_valid():
-                edit_place = form.save(commit=False)
-                edit_place.save()
-                reverser = reverse('religos:detail', args=(edit_place.id,))
-                return HttpResponseRedirect(reverser)
-        except:
-            raise
-    else:
-        init_dict = dict(
-            name=edit_place.name,
-            phone_number=edit_place.phone_number,
-            location=edit_place.location
-        )
-        form = PlaceForm(initial=init_dict)
-        return render(
-            request,
-            'religos/edit.html',
-            {'place_id': place_id, 'form': form}
-        )
+    success_url = '/religos'
 
 
 def add(request):

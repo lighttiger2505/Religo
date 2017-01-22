@@ -5,7 +5,7 @@
 
 <p class="blockquote">Please input new place</p>
 
-<form action="{% url 'religos:edit' place_id %}" method="post">
+<form action="" method="post">
   <table class="table table-bordered">
 
     <!-- Form start auto write in Django -->
@@ -14,7 +14,7 @@
 
   </table>
   <input type="submit" class="btn btn-primary" value="Update">
-  <a href="{% url 'religos:detail' place_id %}"><input type="button" class="btn btn-secondary" value="Cancel"></input>
+  <a href=""><input type="button" class="btn btn-secondary" value="Cancel"></input>
 </form>
 
 {% endblock content %}
