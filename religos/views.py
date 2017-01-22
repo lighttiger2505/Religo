@@ -50,26 +50,11 @@ class EditView(generic.UpdateView):
     success_url = '/religos'
 
 
-def add(request):
-    if request.method == 'POST':
-        if 'add' in request.POST:
-            try:
-                form = PlaceForm(request.POST)
-                if form.is_valid():
-                    new_place = form.save(commit=False)
-                    new_place.add_date = timezone.now()
-                    new_place.save()
-                    reverser = reverse('religos:detail', args=(new_place.id,))
-                    return HttpResponseRedirect(reverser)
-            except:
-                raise
-        if 'upload' in request.POST:
-            print("do upload")
-        else:
-            raise
-    else:
-        form = PlaceForm()
-        return render(request, 'religos/add.html', {'form': form})
+class AddView(generic.CreateView):
+    model = Place
+    template_name = 'religos/add.html'
+    form_class = PlaceForm
+    success_url = '/religos'
 
 
 def upload_file(request):

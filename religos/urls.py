@@ -11,7 +11,7 @@ urlpatterns = [
     # ex: /religos/5/edit/
     url(r'^(?P<pk>[0-9]+)/edit/$', views.EditView.as_view(), name='edit'),
     # ex: /religos/add/
-    url(r'^add/$', views.add, name='add'),
+    url(r'^add/$', views.AddView.as_view(), name='add'),
     # ex: /religos/upload_file/
     url(r'^upload_file/$', views.upload_file, name='upload_file'),
     # ex: /religos/5/upload_complate
