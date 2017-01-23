@@ -120,7 +120,7 @@ class LoginView(FormView):
         user = authenticate(username=username, password=password)
         if user is not None:
             print('Login success!!')
-            # login(request, user)
+            login(self.request, user)
         else:
             print('Login faild!!')
 
