@@ -3,24 +3,40 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views import generic
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
-from .forms import PlaceForm
-from .forms import PhotoForm
-from .models import Place
-from .models import Photo
+from .forms import PlaceForm, PhotoForm
+from .models import Place, Photo
 from .google_vision import do_ocr
 
 
-class IndexView(generic.ListView):
+class NameSearchMixin(object):
+
+    def get_queryset(self):
+        queryset = super(NameSearchMixin, self).get_queryset()
+
+        queryset.order_by('update_date')
+
+        q = self.request.GET.get("q")
+
+        if q:
+            print('do filtering')
+            return queryset.filter(name=q)
+
+        return queryset
+
+
+class IndexView(NameSearchMixin, ListView):
     model = Place
     template_name = 'religos/index.html'
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
-        place_list = Place.objects.all()
-        paginator = Paginator(place_list, self.paginate_by)
+        # queryset = super(NameSearchMixin, self).get_queryset()
+        queryset = self.get_queryset()
+        place_list = queryset.all()
 
+        paginator = Paginator(place_list, self.paginate_by)
         page = self.request.GET.get('page')
         if page is None:
             page = 1
@@ -36,20 +52,27 @@ class IndexView(generic.ListView):
         context['places'] = places
         return context
 
+    # def get(self, request, *args, **kwargs):
+    #     form = SearchForm()
+    #     return render(request, self.template_name, {'form': form})
+    #
+    # def post(self, request, *args, **kwargs):
+    #     return HttpResponseRedirect('/religos/')
 
-class DetailView(generic.DetailView):
+
+class DetailView(DetailView):
     model = Place
     template_name = 'religos/detail.html'
 
 
-class EditView(generic.UpdateView):
+class EditView(UpdateView):
     model = Place
     template_name = 'religos/edit.html'
     form_class = PlaceForm
     success_url = '/religos'
 
 
-class AddView(generic.CreateView):
+class AddView(CreateView):
     model = Place
     template_name = 'religos/add.html'
     form_class = PlaceForm

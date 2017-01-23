@@ -9,27 +9,24 @@
 <p>
     <a href="{% url 'religos:add' %}">
         <button type="button" class="btn btn-primary btn-block"/>
-            <span class="glyphicon glyphicon-plus"></span>
+            <span class="glyphicon glyphicon-plus">追加</span>
         </button>
     </a>
 </p>
 
 <!-- Search form -->
 <p>
-    <div class="row">
-        <div class="col-xs-12">
-            <form>
-                <div id="imaginary_container">
-                    <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control"  placeholder="Search" >
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
-                        </span>
-                    </div>
-                </div>
-            </form>
+    <form action="" method="GET">
+        {% csrf_token %}
+        <div id="imaginary_container">
+            <div class="input-group stylish-input-group">
+                <input type="text" name="q" class="form-control"  placeholder="Search" >
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
         </div>
-    </div>
+    </form>
 </p>
 
 <!-- Place list view -->
