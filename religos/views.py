@@ -17,12 +17,11 @@ class NameSearchMixin(object):
     def get_queryset(self):
         queryset = super(NameSearchMixin, self).get_queryset()
 
-        queryset.order_by('update_date')
+        queryset = queryset.filter(user=self.request.user).order_by('update_date')
 
         q = self.request.GET.get("q")
 
         if q:
-            print('do filtering')
             return queryset.filter(name=q)
 
         return queryset
