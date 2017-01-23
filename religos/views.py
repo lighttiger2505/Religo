@@ -80,6 +80,17 @@ class AddView(LoginRequiredMixin, CreateView):
     form_class = PlaceForm
     success_url = '/religos'
 
+    def form_valid(self, form):
+        place = form.save(commit=False)
+        place.user = self.request.user
+        place.save()
+
+        return HttpResponseRedirect(
+            reverse(
+                'religos:index'
+            )
+        )
+
 
 def upload_file(request):
     if request.method == 'POST':
