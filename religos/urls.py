@@ -20,4 +20,6 @@ urlpatterns = [
         views.complete_upload,
         name='complete_upload'
     ),
+    # ex: /religos/login
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
 ]

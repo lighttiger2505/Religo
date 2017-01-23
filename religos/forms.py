@@ -30,3 +30,8 @@ class PhotoForm(forms.Form):
     file = forms.FileField(
         label='Select a file'
     )
+
+
+class LoginForm(forms.Form):
+    username = forms.fields.CharField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), min_length=8)

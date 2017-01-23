@@ -4,8 +4,10 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic.edit import FormView
+from django.contrib.auth import authenticate, login
 
-from .forms import PlaceForm, PhotoForm
+from .forms import PlaceForm, PhotoForm, LoginForm
 from .models import Place, Photo
 from .google_vision import do_ocr
 
@@ -105,3 +107,25 @@ def complete_upload(request, photo_id):
         'religos/complete_upload.html',
         {'photo': photo}
     )
+
+
+class LoginView(FormView):
+    template_name = 'religos/login.html'
+    form_class = LoginForm
+    success_url = '/religos'
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            print('Login success!!')
+            # login(request, user)
+        else:
+            print('Login faild!!')
+
+        return HttpResponseRedirect(
+            reverse(
+                'religos:index'
+            )
+        )
