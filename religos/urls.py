@@ -22,4 +22,6 @@ urlpatterns = [
     ),
     # ex: /religos/login
     url(r'^login/$', views.LoginView.as_view(), name='login'),
+    # ex: /religos/logout
+    url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 ]

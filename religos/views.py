@@ -3,10 +3,10 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, TemplateView
 from django.views.generic.edit import FormView
-from django.contrib.auth import authenticate, login
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PlaceForm, PhotoForm, LoginForm
 from .models import Place, Photo
 from .google_vision import do_ocr
@@ -28,13 +28,20 @@ class NameSearchMixin(object):
         return queryset
 
 
-class IndexView(NameSearchMixin, ListView):
+class IndexView(LoginRequiredMixin, NameSearchMixin, ListView):
     model = Place
     template_name = 'religos/index.html'
     paginate_by = 5
+    login_url = '/religos/login/'
+    redirect_field_name = 'redirect_to'
+    raise_exception = False
 
     def get_context_data(self, **kwargs):
-        # queryset = super(NameSearchMixin, self).get_queryset()
+        if self.request.user.is_authenticated:
+            print('Logined')
+        else:
+            print('Logout')
+
         queryset = self.get_queryset()
         place_list = queryset.all()
 
@@ -54,27 +61,20 @@ class IndexView(NameSearchMixin, ListView):
         context['places'] = places
         return context
 
-    # def get(self, request, *args, **kwargs):
-    #     form = SearchForm()
-    #     return render(request, self.template_name, {'form': form})
-    #
-    # def post(self, request, *args, **kwargs):
-    #     return HttpResponseRedirect('/religos/')
 
-
-class DetailView(DetailView):
+class DetailView(LoginRequiredMixin, DetailView):
     model = Place
     template_name = 'religos/detail.html'
 
 
-class EditView(UpdateView):
+class EditView(LoginRequiredMixin, UpdateView):
     model = Place
     template_name = 'religos/edit.html'
     form_class = PlaceForm
     success_url = '/religos'
 
 
-class AddView(CreateView):
+class AddView(LoginRequiredMixin, CreateView):
     model = Place
     template_name = 'religos/add.html'
     form_class = PlaceForm
@@ -129,3 +129,11 @@ class LoginView(FormView):
                 'religos:index'
             )
         )
+
+
+class LogoutView(LoginRequiredMixin, TemplateView):
+    template_name = 'religos/logout.html'
+
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('religos:login'))
