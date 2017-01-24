@@ -63,6 +63,11 @@
                                     </li>
                                 </ul>
                             </li>
+                        {% else %}
+                            <ul class="list-inline">
+                                <li><a href="{% url 'religos:login' %}" class="btn navbar-btn btn-primary btn-block">ログイン</a></li>
+                                <li><a href="{% url 'religos:signup' %}" class="btn navbar-btn btn-danger btn-block">新規登録</a></li>
+                            </ul>
                         {% endif %}
                     </ul>
                 </div>

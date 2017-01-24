@@ -173,3 +173,7 @@ class SignupView(FormView):
 
 class SignupCompleteView(TemplateView):
     template_name = 'religos/signup_complete.html'
+
+
+class HomeView(TemplateView):
+    template_name = 'religos/home.html'

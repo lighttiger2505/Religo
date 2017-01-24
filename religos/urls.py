@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^signup/$', views.SignupView.as_view(), name='signup'),
     # ex: /religos/logout
     url(r'^signup_complete/$', views.SignupCompleteView.as_view(), name='signup_complete'),
+    # ex: /religos/home.html
+    url(r'^home/$', views.HomeView.as_view(), name='home'),
 ]
