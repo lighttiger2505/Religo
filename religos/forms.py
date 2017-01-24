@@ -35,3 +35,13 @@ class PhotoForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.fields.CharField(required=True)
     password = forms.CharField(widget=forms.PasswordInput(), min_length=8)
+
+
+class SignupForm(forms.Form):
+    username = forms.fields.CharField(required=True)
+    password_first = forms.CharField(
+        widget=forms.PasswordInput(), min_length=8
+    )
+    password_second = forms.CharField(
+        widget=forms.PasswordInput(), min_length=8
+    )

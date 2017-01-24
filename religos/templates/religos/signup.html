@@ -1,0 +1,20 @@
+{% extends "religos/base.html" %}
+
+<!-- Main content start -->
+{% block content %}
+
+<form action="" method="post">
+  <table class="table table-bordered">
+
+    <!-- Form start auto write in Django -->
+    {% csrf_token %} {{ form.as_table }}
+    <!-- Form end -->
+
+  </table>
+  <input type="submit" class="btn btn-primary" value="Sign up">
+  <a href="{% url 'religos:index' %}"><input type="button" class="btn btn-secondary" value="Cancel"></input>
+  </a>
+</form>
+
+{% endblock content %}
+<!-- Main content end -->

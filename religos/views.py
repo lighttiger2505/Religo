@@ -7,9 +7,10 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, T
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import PlaceForm, PhotoForm, LoginForm
+from .forms import PlaceForm, PhotoForm, LoginForm, SignupForm
 from .models import Place, Photo
 from .google_vision import do_ocr
+from django.contrib.auth.models import User
 
 
 class NameSearchMixin(object):
@@ -147,3 +148,28 @@ class LogoutView(LoginRequiredMixin, TemplateView):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('religos:login'))
+
+
+class SignupView(FormView):
+    template_name = 'religos/signup.html'
+    form_class = SignupForm
+    success_url = '/religos'
+
+    def form_valid(self, form):
+        username = form.cleaned_data['username']
+        password_first = form.cleaned_data['password_first']
+        password_second = form.cleaned_data['password_second']
+        user = User.objects.create_user(
+            username=username, password=password_first
+        )
+        user.save()
+
+        return HttpResponseRedirect(
+            reverse(
+                'religos:index'
+            )
+        )
+
+
+class SignupCompleteView(TemplateView):
+    template_name = 'religos/signup_complete.html'

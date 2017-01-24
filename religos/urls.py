@@ -24,4 +24,8 @@ urlpatterns = [
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     # ex: /religos/logout
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+    # ex: /religos/logout
+    url(r'^signup/$', views.SignupView.as_view(), name='signup'),
+    # ex: /religos/logout
+    url(r'^signup_complete/$', views.SignupCompleteView.as_view(), name='signup_complete'),
 ]
