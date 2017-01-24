@@ -6,19 +6,20 @@
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/layout.css' %}" rel="stylesheet">
+  <link href="{% static 'css/palette.css' %}" rel="stylesheet">
   <script src="{% static 'js/jquery-2.2.0.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <title>Religos -correct want go place-</title>
+  <title>Religo</title>
   <meta charset="utf-8">
 </head>
 
 <body>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-default navbar-fixed-top">
+  <nav class="base-nav navbar navbar-default navbar-fixed-top dark-primary-color">
     <div class="container-fluid">
 
                 <div class="navbar-header">
-                    <a href="{% url 'religos:index' %}" class="navbar-brand">Religo</a>
+                    <a href="{% url 'religos:index' %}" class="navbar-brand">Religo(α)</a>
                 </div>
 
                 <div class="collapse navbar-collapse">
@@ -42,9 +43,6 @@
                                                 <div class="col-lg-8">
                                                     <p class="text-left"><strong>{{ user.username }}</strong></p>
                                                     <p class="text-left small">{{ user.email }}</p>
-                                                    <p class="text-left">
-                                                        <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,7 +53,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <p>
-                                                        <a href="{% url 'religos:logout' %}" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                                                        <a href="{% url 'religos:logout' %}" class="btn btn-danger btn-block">ログアウト</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -65,8 +63,8 @@
                             </li>
                         {% else %}
                             <ul class="list-inline">
-                                <li><a href="{% url 'religos:login' %}" class="btn navbar-btn btn-primary btn-block">ログイン</a></li>
-                                <li><a href="{% url 'religos:signup' %}" class="btn navbar-btn btn-danger btn-block">新規登録</a></li>
+                                <li><a href="{% url 'religos:login' %}" class="btn navbar-btn btn-default btn-block">ログイン</a></li>
+                                <li><a href="{% url 'religos:signup' %}" class="btn navbar-btn btn-success btn-block">新規登録</a></li>
                             </ul>
                         {% endif %}
                     </ul>
@@ -76,15 +74,13 @@
     </div>
   </nav>
 
-  <!-- Begin page content -->
-  <div id="content" class="container">
+    <!-- Begin page content -->
     {% block content %} {% endblock %}
-  </div>
 
   <!-- Fixed footer -->
-  <footer id="footer">
+  <footer class="base-footer">
     <div class="container">
-      <p class="text-muted">Copyright(C) 2017 lightitger2505. All Rights Reserved.</p>
+      <p class="text-muted text-center">Copyright(C) 2017 lightitger2505. All Rights Reserved.</p>
     </div>
   </footer>
 </body>

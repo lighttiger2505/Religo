@@ -3,7 +3,18 @@
 <!-- Main content start -->
 {% block content %}
 
+<div class="home-masthead default-primary-color">
+    <div class="container text-center">
+        <h1>Religo</h1>
+        <p class="lead">あなたは行きたい場所がありますか？</p>
 
-
+        {% if user.is_authenticated %}
+            <p>既にログインしていますね</p>
+            <a href="{% url 'religos:index' %}">行きたい場所を集める</a>
+        {% else %}
+            <a href="{% url 'religos:signup' %}" class="btn btn-success btn-lg">今すぐ登録</a>
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}
 <!-- Main content end -->

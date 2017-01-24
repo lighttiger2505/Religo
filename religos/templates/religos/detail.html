@@ -3,29 +3,30 @@
 <!-- Main content start -->
 {% block content %}
 
-<p>Looking place detail</p>
+<div class="base-content">
+    <div class="container">
 
-<table class="table table-bordered">
-  <tr>
-    <td><strong>店名:<strong></td>
-    <td>{{ place.name }}</td>
-  </tr>
+        <table class="table table-bordered">
+            <tr>
+                <td><strong>店名:<strong></td>
+                <td>{{ place.name }}</td>
+            </tr>
 
-  <tr>
-    <td><strong>電話番号:<strong></td>
-    <td>{{ place.phone_number }}</td>
-  </tr>
+            <tr>
+                <td><strong>電話番号:<strong></td>
+                <td>{{ place.phone_number }}</td>
+            </tr>
 
-  <tr>
-    <td><strong>住所:<strong></td>
-    <td>{{ place.location }}</td>
-  </tr>
-
-</table>
-<form action="{% url 'religos:edit' place.id %}" method="get">
-  <input type="submit" class="btn btn-primary" value="Edit">
-  <a href="{% url 'religos:index' %}"><input type="button" class="btn btn-secondary" value="Return"></input>
-</form>
+            <tr>
+                <td><strong>住所:<strong></td>
+                <td>{{ place.location }}</td>
+            </tr>
+        </table>
+        
+        <a href="{% url 'religos:edit' place.id %}" class="btn btn-primary">編集</a>
+        <a href="{% url 'religos:index' %}" class="btn btn-default">戻る</a>
+    </div>
+</div>
 
 {% endblock content %}
 <!-- Main content end -->

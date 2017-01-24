@@ -33,15 +33,23 @@ class PhotoForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.fields.CharField(required=True)
-    password = forms.CharField(widget=forms.PasswordInput(), min_length=8)
+    username = forms.fields.CharField(
+        required=True,
+        label='ユーザ')
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        min_length=8,
+        label='パスワード')
 
 
 class SignupForm(forms.Form):
-    username = forms.fields.CharField(required=True)
+    username = forms.fields.CharField(required=True, label='ユーザ')
     password_first = forms.CharField(
-        widget=forms.PasswordInput(), min_length=8
-    )
+        widget=forms.PasswordInput(),
+        min_length=8,
+        label='パスワード')
     password_second = forms.CharField(
-        widget=forms.PasswordInput(), min_length=8
+        widget=forms.PasswordInput(),
+        min_length=8,
+        label='パスワード確認'
     )

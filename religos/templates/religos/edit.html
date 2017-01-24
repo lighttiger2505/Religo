@@ -1,21 +1,25 @@
 {% extends "religos/base.html" %}
+{% load bootstrap %}
 
 <!-- Main content start -->
 {% block content %}
 
-<p class="blockquote">Please input new place</p>
+<div class="base-content">
+    <div class="container">
+        <form action="" method="post">
+            <table class="table table-bordered">
 
-<form action="" method="post">
-  <table class="table table-bordered">
+            <!-- Form start auto write in Django -->
+            {% csrf_token %}
+            {{ form|bootstrap }}
+            <!-- Form end -->
 
-    <!-- Form start auto write in Django -->
-    {% csrf_token %} {{ form.as_table }}
-    <!-- Form end -->
-
-  </table>
-  <input type="submit" class="btn btn-primary" value="Update">
-  <a href="{% url 'religos:index' %}"><input type="button" class="btn btn-secondary" value="Cancel"></input>
-</form>
+            </table>
+            <button type="submit" class="btn btn-primary" value="Login">更新</button>
+            <a href="{% url 'religos:index' %}" class="btn btn-default">キャンセル</a>
+        </form>
+    </div>
+</div>
 
 {% endblock content %}
 <!-- Main content end -->
