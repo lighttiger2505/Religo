@@ -24,7 +24,7 @@ body {
 
 .base-nav {
     margin-bottom: 0;
-    background-color: #FFF;
+    /*background-color: #B26900;*/
     border-bottom: 0;
 }
 
@@ -42,8 +42,8 @@ body {
 
 .home-masthead {
     padding: 80px 0;
-    font-size: 30px
-    background: #FFC107;
+    font-size: 30px;
+    background-color: #FFA11A;
     color: #FFF;
 }
 
