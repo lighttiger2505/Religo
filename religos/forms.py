@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from django import forms
-
 from religos.models import Place
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 class PlaceForm(ModelForm):
@@ -53,3 +54,13 @@ class SignupForm(forms.Form):
         min_length=8,
         label='パスワード確認'
     )
+
+    def clean(self):
+        cleaned_data = super(SignupForm, self).clean()
+        # ユーザ名の重複チェック
+        if User.objects.all().filter(username=cleaned_data.get('username')):
+            raise forms.ValidationError('ユーザ名が重複しています。')
+        # パスワード同一チェック
+        if cleaned_data.get('password_first') != \
+                cleaned_data.get('password_second'):
+            raise forms.ValidationError('パスワードが同一ではありません。')

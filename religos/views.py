@@ -11,6 +11,7 @@ from .forms import PlaceForm, PhotoForm, LoginForm, SignupForm
 from .models import Place, Photo
 from .google_vision import do_ocr
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 class NameSearchMixin(object):
@@ -159,6 +160,7 @@ class SignupView(FormView):
         username = form.cleaned_data['username']
         password_first = form.cleaned_data['password_first']
         password_second = form.cleaned_data['password_second']
+
         user = User.objects.create_user(
             username=username, password=password_first
         )
