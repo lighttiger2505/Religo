@@ -26,7 +26,7 @@ SECRET_KEY = 'br2+f*4gtz-)#!42)f*u0n3h0nw1(s9dog!=o=k$#bdg9(cn06'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'fast-bayou-54719.herokuapp.com']
 
 # Application definition
 
