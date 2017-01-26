@@ -148,6 +148,10 @@ class LogoutView(LoginRequiredMixin, TemplateView):
     template_name = 'religos/logout.html'
     login_url = '/religos/home/'
 
+    def get(self, request):
+        logout(request)
+        return HttpResponse(self.template_name)
+
 
 class SignupView(FormView):
     template_name = 'religos/signup.html'
