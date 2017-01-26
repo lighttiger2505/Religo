@@ -177,3 +177,5 @@ except Exception:
     info = sys.exc_info()
     msg = 'Unexpected error:' + info
     print
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

@@ -11,6 +11,8 @@ from .forms import PlaceForm, PhotoForm, LoginForm, SignupForm
 from .models import Place, Photo
 from .google_vision import do_ocr
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class NameSearchMixin(object):
@@ -67,31 +69,34 @@ class DetailView(LoginRequiredMixin, DetailView):
     login_url = '/religos/home/'
 
 
-class EditView(LoginRequiredMixin, UpdateView):
+class EditView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     model = Place
     template_name = 'religos/edit.html'
     form_class = PlaceForm
-    success_url = '/religos'
+    # success_url = '/religos'
+    success_message = '更新が完了しました。'
     login_url = '/religos/home/'
 
+    def form_valid(self, form):
+        messages.info(self.request, '更新が完了しました。')
+        return HttpResponseRedirect(reverse('religos:index'))
 
-class AddView(LoginRequiredMixin, CreateView):
+
+
+class AddView(LoginRequiredMixin, CreateView, SuccessMessageMixin):
     model = Place
     template_name = 'religos/add.html'
     form_class = PlaceForm
-    success_url = '/religos'
+    # success_url = '/religos'
+    success_message = '追加が完了しました。'
     login_url = '/religos/home/'
 
     def form_valid(self, form):
         place = form.save(commit=False)
         place.user = self.request.user
         place.save()
-
-        return HttpResponseRedirect(
-            reverse(
-                'religos:index'
-            )
-        )
+        messages.info(self.request, '追加が完了しました。')
+        return HttpResponseRedirect(reverse('religos:index'))
 
 
 def upload_file(request):
