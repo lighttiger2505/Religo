@@ -11,7 +11,6 @@ from .forms import PlaceForm, PhotoForm, LoginForm, SignupForm
 from .models import Place, Photo
 from .google_vision import do_ocr
 from django.contrib.auth.models import User
-from django.contrib import messages
 
 
 class NameSearchMixin(object):
@@ -33,8 +32,7 @@ class IndexView(LoginRequiredMixin, NameSearchMixin, ListView):
     model = Place
     template_name = 'religos/index.html'
     paginate_by = 5
-    login_url = '/religos/login/'
-    redirect_field_name = 'redirect_to'
+    login_url = '/religos/home/'
     raise_exception = False
 
     def get_context_data(self, **kwargs):
@@ -66,6 +64,7 @@ class IndexView(LoginRequiredMixin, NameSearchMixin, ListView):
 class DetailView(LoginRequiredMixin, DetailView):
     model = Place
     template_name = 'religos/detail.html'
+    login_url = '/religos/home/'
 
 
 class EditView(LoginRequiredMixin, UpdateView):
@@ -73,6 +72,7 @@ class EditView(LoginRequiredMixin, UpdateView):
     template_name = 'religos/edit.html'
     form_class = PlaceForm
     success_url = '/religos'
+    login_url = '/religos/home/'
 
 
 class AddView(LoginRequiredMixin, CreateView):
@@ -80,6 +80,7 @@ class AddView(LoginRequiredMixin, CreateView):
     template_name = 'religos/add.html'
     form_class = PlaceForm
     success_url = '/religos'
+    login_url = '/religos/home/'
 
     def form_valid(self, form):
         place = form.save(commit=False)
@@ -145,10 +146,7 @@ class LoginView(FormView):
 
 class LogoutView(LoginRequiredMixin, TemplateView):
     template_name = 'religos/logout.html'
-
-    def get(self, request):
-        logout(request)
-        return HttpResponseRedirect(reverse('religos:login'))
+    login_url = '/religos/home/'
 
 
 class SignupView(FormView):
@@ -159,7 +157,6 @@ class SignupView(FormView):
     def form_valid(self, form):
         username = form.cleaned_data['username']
         password_first = form.cleaned_data['password_first']
-        password_second = form.cleaned_data['password_second']
 
         user = User.objects.create_user(
             username=username, password=password_first
@@ -168,7 +165,7 @@ class SignupView(FormView):
 
         return HttpResponseRedirect(
             reverse(
-                'religos:index'
+                'religos:signup_complete'
             )
         )
 

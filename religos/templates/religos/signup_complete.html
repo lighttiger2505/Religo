@@ -3,7 +3,15 @@
 <!-- Main content start -->
 {% block content %}
 
-<p class="blockquote">登録ありがとうございます。ログインして Religo をお楽しみください。</p>
+<div class="base-content">
+    <div class="container">
+        <p class="blockquote text-center">
+            登録ありがとうございます。
+            <a href="{% url 'religos:login' %}">ログイン</a>
+            して Religo をお楽しみください。
+        </p>
+    </div>
+</div>
 
 {% endblock content %}
 <!-- Main content end -->
