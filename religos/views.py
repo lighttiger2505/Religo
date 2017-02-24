@@ -20,10 +20,22 @@ class NameSearchMixin(object):
     def get_queryset(self):
         queryset = super(NameSearchMixin, self).get_queryset()
 
-        queryset = queryset.filter(user=self.request.user).order_by('update_date')
+        if 'sort_of_name_asc' in self.request.GET:
+            queryset = queryset.filter(user=self.request.user).order_by('name')
+        elif 'sort_of_name_desc' in self.request.GET:
+            queryset = queryset.filter(
+                user=self.request.user).order_by('name').reverse()
+        elif 'sort_of_upd_date_asc' in self.request.GET:
+            queryset = queryset.filter(
+                user=self.request.user).order_by('update_date')
+        elif 'sort_of_upd_date_desc' in self.request.GET:
+            queryset = queryset.filter(
+                user=self.request.user).order_by('update_date').reverse()
+        else:
+            queryset = queryset.filter(
+                user=self.request.user).order_by('update_date')
 
         q = self.request.GET.get("q")
-
         if q:
             return queryset.filter(name=q)
 
